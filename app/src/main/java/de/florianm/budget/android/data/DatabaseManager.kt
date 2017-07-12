@@ -1,7 +1,9 @@
 package de.florianm.budget.android.data
 
+import android.content.Context
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 import com.squareup.sqlbrite2.BriteDatabase
 import com.squareup.sqlbrite2.SqlBrite
@@ -10,12 +12,12 @@ import io.reactivex.schedulers.Schedulers
 
 
 class DatabaseManager(
-        val context: android.content.Context,
+        val context: Context,
         val name: String,
         val version: Int,
         val tableConfigs: MutableList<TableConfig>,
         foreignKeyConstraints: Boolean = false,
-        factory: SQLiteDatabase.CursorFactory? = null,
+        factory: CursorFactory? = null,
         errorHandler: DatabaseErrorHandler? = null,
         logger: SqlBrite.Logger? = null,
         scheduler: Scheduler = Schedulers.io(),
@@ -57,9 +59,9 @@ class DatabaseManager(
     fun getSqliteDatabasePath(): java.io.File? = context.getDatabasePath(name)
 
     inner class OpenHelper(
-            context: android.content.Context,
+            context: Context,
             name: String,
-            factory: SQLiteDatabase.CursorFactory?,
+            factory: CursorFactory?,
             version: Int = 1,
             errorHandler: DatabaseErrorHandler?,
             val foreignKeyConstraints: Boolean,
